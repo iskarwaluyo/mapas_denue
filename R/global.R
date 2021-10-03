@@ -1,5 +1,5 @@
-library(plyr) # CARGAR LIBRER√çA plyr
-library(readr) # CARGAR LIBRER√çA readr
+library(plyr) # CARGAR LIBRER√A plyr
+library(readr) # CARGAR LIBRER√A readr
 library(rgdal)
 library(dplyr)
 library(ggplot2)
@@ -10,10 +10,20 @@ library(leaflet)
 library(shiny)
 library(shinythemes)
 
-denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/mapas_denue/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), 
-                       encoding = "UTF-8")
+#denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/mapas_denue/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), encoding = "UTF-8")
 
-mun_mapa <- readOGR("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/YUCATAN_MUNICIPIOS.geojson")
+#mun_mapa <- readOGR("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/YUCATAN_MUNICIPIOS.geojson")
+
+#denue_2021_merida <- import("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv")
+
+#mun_mapa <- readOGR("https://raw.github.com/iskarwaluyo/mapas_denue/main/DATOS/YUCATAN_MUNICIPIOS.geojson")
+
+load(url("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/DATOS/Rdata/data_base.RData"))
+load(url("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/DATOS/Rdata/select_liverpool_general.RData"))
+load(url("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/DATOS/Rdata/select_a.RData"))
+load(url("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/DATOS/Rdata/pop_ups.RData"))
+
+
 
 bins_terrenos_tot <- c(0, 100, 200, 400, 800, 1000, 2000, 4000, 8000, 16000, 32000)
 pal_1 <- colorBin( palette="viridis", domain = as.numeric(as.character(mun_mapa@data$CVE_MUN)), bins = bins_terrenos_tot)
@@ -185,7 +195,17 @@ pop_cerveza <- paste0("<b><br/> Municipio: </b>", select_liverpool_cerveza$munic
                       "<b><br/> Correo: </b>", select_liverpool_cerveza$correoelec,
                       "<b><br/> Telefono: </b>", select_liverpool_cerveza$telefono)
 
-setwd("/media/iskar/archivos/MAPAS/mapas_denue//RESULTADOS")
+setwd("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/RData")
+
+save(denue_2021_merida, mun_mapa, file = "data_base.RData")
+save(select_liverpool, select_liverpool_A, file = "select_liverpool_general.RData")
+save(select_liverpool_bolsas, select_liverpool_camisas, select_liverpool_cerveza,
+     select_liverpool_cosmeticos, select_liverpool_ropaext, select_liverpool_ropaint, 
+     select_liverpool_sastres, select_liverpool_sombreros, file = "select_a.RData")
+save(pop_bolsas, pop_camisas, pop_cerveza, pop_cosmeticos,
+     pop_ropaext, pop_sastres, pop_sombreros, pal_1, file = "pop_ups.RData")
+
+setwd("/media/iskar/archivos/MAPAS/mapas_denue/RESULTADOS")
 
 write.csv(file = "lista_de_actividades_economicas_merida.csv", actividades_economicas_en_DENUE)
 write.csv(file = "primer_filtrado_uecs_liverpool.csv", select_liverpool_A)

@@ -8,10 +8,14 @@ library(RCurl)
 library(geojsonio)
 library(leaflet)
 
-denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/mapas_denue/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), 
-                       encoding = "UTF-8")
+#denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/mapas_denue/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), encoding = "UTF-8")
 
-mun_mapa <- readOGR("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/YUCATAN_MUNICIPIOS.geojson")
+#mun_mapa <- readOGR("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/YUCATAN_MUNICIPIOS.geojson")
+
+denue_2021_merida <- import("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv")
+
+mun_mapa <- readOGR("https://raw.github.com/iskarwaluyo/mapas_denue/main/DATOS/YUCATAN_MUNICIPIOS.geojson")
+
 
 bins_terrenos_tot <- c(0, 100, 200, 400, 800, 1000, 2000, 4000, 8000, 16000, 32000)
 pal_1 <- colorBin( palette="magma", domain = as.numeric(as.character(mun_mapa@data$CVE_MUN)), bins = bins_terrenos_tot)
