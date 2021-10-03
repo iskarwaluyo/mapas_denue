@@ -3,13 +3,19 @@ library(readr) # CARGAR LIBRERÍA readr
 library(rgdal)
 library(dplyr)
 library(ggplot2)
+library(rio)
+library(RCurl)
+library(geojsonio)
+library(leaflet)
 
-setwd("/media/iskar/archivos/MAPAS/DENUE_MERIDA/R")
+denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/mapas_denue/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), 
+                       encoding = "UTF-8")
 
-denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/DENUE_MERIDA/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), 
-                       encoding = "latin1")
+mun_mapa <- readOGR("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/YUCATAN_MUNICIPIOS.geojson")
 
-mapa_merida <- readOGR(file = "/media/iskar/archivos/MAPAS/DENUE_MERIDA/DATOS/denue_31_shp/conjunto_de_datos/denue_inegi_31_.shp")
+bins_terrenos_tot <- c(0, 100, 200, 400, 800, 1000, 2000, 4000, 8000, 16000, 32000)
+pal_1 <- colorBin( palette="magma", domain = as.numeric(as.character(mun_mapa@data$CVE_MUN)), bins = bins_terrenos_tot)
+
 
 actividades_economicas_en_DENUE <- unique(as.data.frame(denue_2021_merida$nombre_act))
 
@@ -91,11 +97,12 @@ cerveza_perocu <- as.data.frame(summary(as.factor(select_liverpool_cerveza$per_o
 cerveza_municipio <- as.data.frame(summary(as.factor(select_liverpool_cerveza$municipio)))
 
 
-
-uecs_perocu_mun <- denue_2021_merida %>% 
-  group_by(per_ocu, municipio) %>% 
+uecs_mun <- denue_2021_merida %>% 
+  group_by(municipio) %>% 
   summarise(count = n()) %>% 
   mutate(perc = count/sum(count))
+
+mun_mapa <- merge(mun_mapa, uecs_mun, by.x = "NOM_MUN", by.y = "municipio")
 
 ggplot(uecs_perocu_mun, aes(x = factor(count), y = municipio, fill = factor(count))) +
   geom_bar(stat="identity", width = .7) +
