@@ -14,7 +14,7 @@ function(input, output, session) {
   # VISUALIZACIÓN DE DATOS 1
   
   output$tabla1 = DT::renderDataTable({
-    data <- denue_2021_merida
+    data <- select_liverpool
     DT::datatable(
       extensions = 'Buttons',
       options = list(
@@ -24,6 +24,11 @@ function(input, output, session) {
       {
         if (input$municipio != "Todos") {
           data <- data[data$municipio == input$municipio,]
+        }
+        {
+          if (input$CATEGORIA != "Todos") {
+            data <- data[data$CATEGORIA == input$CATEGORIA,]
+          }
         }
         data
       }

@@ -15,8 +15,34 @@ bootstrapPage(theme = shinytheme("flatly"),
                                                                         tags$a(href='https://www.centrogeo.org.mx', tags$img(src='https://raw.githubusercontent.com/iskarwaluyo/mapa_agricultura_masaforestal/master/html/logo_centrogeo_solo.png',height='40',width='40'))),
                                             ))
                                   )
-                         )
+                         ),
+                         
+                         navbarMenu("Datos",
+                                    tabPanel("Lista de establecimientos",
+                                             h2("Visualización de establecimientos"),
+                                             fluidRow(
+                                               column(4,
+                                                      selectInput("municipio",
+                                                                  "Municipio:",
+                                                                  c("Todos",
+                                                                    unique(as.character(select_liverpool$municipio))))
+                                               ),
+                                               column(4,
+                                                      selectInput("per_ocu",
+                                                                  "Personas ocupadas:",
+                                                                  c("Todos",
+                                                                    unique(as.character(select_liverpool$per_ocu))))
+                                               ),
+                                               column(4,
+                                                      selectInput("CATEGORIA",
+                                                                  "Clave concatenado/Área de Control:",
+                                                                  c("Todos",
+                                                                    unique(as.character(select_liverpool$CATEGORIA))))
+                                               )
+                                             ),
+                                             DT::dataTableOutput("tabla1"),
+                                    )
                          
               )
               
-)
+))
