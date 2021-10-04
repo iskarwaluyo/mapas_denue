@@ -1,5 +1,5 @@
-library(plyr) # CARGAR LIBRER√çA plyr
-library(readr) # CARGAR LIBRER√çA readr
+library(plyr) # CARGAR LIBRERÌA plyr
+library(readr) # CARGAR LIBRERÌA readr
 library(rgdal)
 library(dplyr)
 library(ggplot2)

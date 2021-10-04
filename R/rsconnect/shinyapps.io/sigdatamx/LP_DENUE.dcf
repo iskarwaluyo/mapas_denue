@@ -5,9 +5,9 @@ account: sigdatamx
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4786797
-bundleId: 5100194
+bundleId: 5100363
 url: https://sigdatamx.shinyapps.io/LP_DENUE/
-when: 1633295813.60192
-lastSyncTime: 1633295813.60192
+when: 1633320652.89566
+lastSyncTime: 1633320652.89566
 asMultiple: FALSE
 asStatic: FALSE
