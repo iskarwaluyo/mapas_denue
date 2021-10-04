@@ -10,18 +10,13 @@ library(leaflet)
 library(shiny)
 library(shinythemes)
 
-denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/mapas_denue/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), encoding = "UTF-8")
+#denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/mapas_denue/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), encoding = "UTF-8")
 
-mun_mapa <- readOGR("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/YUCATAN_MUNICIPIOS.geojson")
+#mun_mapa <- readOGR("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/YUCATAN_MUNICIPIOS.geojson")
 
-#denue_2021_merida <- import("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv")
+denue_2021_merida <- import("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv")
 
-#mun_mapa <- readOGR("https://raw.github.com/iskarwaluyo/mapas_denue/main/DATOS/YUCATAN_MUNICIPIOS.geojson")
-
-
-
-bins_terrenos_tot <- c(0, 100, 200, 400, 800, 1000, 2000, 4000, 8000, 16000, 32000)
-pal_1 <- colorBin( palette="viridis", domain = as.numeric(as.character(mun_mapa@data$CVE_MUN)), bins = bins_terrenos_tot)
+mun_mapa <- readOGR("https://raw.github.com/iskarwaluyo/mapas_denue/main/DATOS/YUCATAN_MUNICIPIOS.geojson")
 
 
 actividades_economicas_en_DENUE <- unique(as.data.frame(denue_2021_merida$nombre_act))
@@ -39,90 +34,56 @@ select_liverpool_A <- denue_2021_merida[grep('Acabado de productos textiles|
 
 select_liverpool_bolsas <- denue_2021_merida[grep('Fabricación de bolsos de mano, maletas y similares', 
                                                   as.character(denue_2021_merida$nombre_act)), ]
-
 select_liverpool_bolsas$CATEGORIA <- paste0("BOLSAS")
-
 bolsas_perocu <- as.data.frame(summary(as.factor(select_liverpool_bolsas$per_ocu)))
-
 bolsas_municipio <- as.data.frame(summary(as.factor(select_liverpool_bolsas$municipio)))
 
 
 select_liverpool_sastres <- denue_2021_merida[grep('Confección de prendas de vestir sobre medida', 
                                                    as.character(denue_2021_merida$nombre_act)), ]
-
 select_liverpool_sastres$CATEGORIA <- paste0("SASTRES")
-
-
 sastres_perocu <- as.data.frame(summary(as.factor(select_liverpool_sastres$per_ocu)))
-
 sastres_municipio <- as.data.frame(summary(as.factor(select_liverpool_sastres$municipio)))
-
-
 
 select_liverpool_cosmeticos <- denue_2021_merida[grep('Fabricación de cosméticos, perfumes y otras preparaciones de tocador', 
                                                       as.character(denue_2021_merida$nombre_act)), ]
-
 select_liverpool_cosmeticos$CATEGORIA <- paste0("COSMETICOS")
-
 cosmeticos_perocu <- as.data.frame(summary(as.factor(select_liverpool_cosmeticos$per_ocu)))
-
 cosmeticos_municipio <- as.data.frame(summary(as.factor(select_liverpool_cosmeticos$municipio)))
-
-
 
 select_liverpool_sombreros <- denue_2021_merida[grep('Confección de sombreros y gorras', 
                                                      as.character(denue_2021_merida$nombre_act)), ]
-
 select_liverpool_sombreros$CATEGORIA <- paste0("SOMBREROS")
-
 sombreros_perocu <- as.data.frame(summary(as.factor(select_liverpool_sombreros$per_ocu)))
-
 sombreros_municipio <- as.data.frame(summary(as.factor(select_liverpool_sombreros$municipio)))
-
-
 
 select_liverpool_camisas <- denue_2021_merida[grep('Confección en serie de camisas', 
                                                    as.character(denue_2021_merida$nombre_act)), ]
-
 select_liverpool_camisas$CATEGORIA <- paste0("CAMISAS")
-
 camisas_perocu <- as.data.frame(summary(as.factor(select_liverpool_camisas$per_ocu)))
-
 camisas_municipio <- as.data.frame(summary(as.factor(select_liverpool_camisas$municipio)))
-
 
 select_liverpool_ropaext <- denue_2021_merida[grep('Confección en serie de otra ropa exterior de materiales textiles|Fabricación de ropa exterior de tejido de punto', 
                                                    as.character(denue_2021_merida$nombre_act)), ]
-
 select_liverpool_ropaext$CATEGORIA <- paste0("ROPA EXTERIOR")
-
 ropaext_perocu <- as.data.frame(summary(as.factor(select_liverpool_ropaext$per_ocu)))
-
 ropaext_municipio <- as.data.frame(summary(as.factor(select_liverpool_ropaext$municipio)))
-
 
 select_liverpool_ropaint <- denue_2021_merida[grep('Confección en serie de ropa interior y de dormir|Fabricación de ropa interior de tejido de punto', 
                                                    as.character(denue_2021_merida$nombre_act)), ]
-
 select_liverpool_ropaint$CATEGORIA <- paste0("ROPA INTERIOR")
-
 ropaint_perocu <- as.data.frame(summary(as.factor(select_liverpool_ropaint$per_ocu)))
-
 ropaint_municipio <- as.data.frame(summary(as.factor(select_liverpool_ropaint$municipio)))
 
 select_liverpool_cerveza <- denue_2021_merida[grep('Elaboración de cerveza', 
                                                    as.character(denue_2021_merida$nombre_act)), ]
-
 select_liverpool_cerveza$CATEGORIA <- paste0("CERVEZA")
-
 cerveza_perocu <- as.data.frame(summary(as.factor(select_liverpool_cerveza$per_ocu)))
-
 cerveza_municipio <- as.data.frame(summary(as.factor(select_liverpool_cerveza$municipio)))
 
 select_liverpool <- rbind(select_liverpool_bolsas, select_liverpool_sastres, 
                           select_liverpool_cosmeticos, select_liverpool_sombreros,
                           select_liverpool_ropaext, select_liverpool_ropaint, select_liverpool_cerveza)
-
 
 uecs_mun <- denue_2021_merida %>% 
   group_by(municipio) %>% 
@@ -130,6 +91,8 @@ uecs_mun <- denue_2021_merida %>%
   mutate(perc = count/sum(count))
 
 mun_mapa <- merge(mun_mapa, uecs_mun, by.x = "NOM_MUN", by.y = "municipio")
+
+
 
 ggplot(uecs_mun, aes(x = factor(count), y = municipio, fill = factor(count))) +
   geom_bar(stat="identity", width = .7) +
@@ -146,8 +109,11 @@ ggplot(uecs_mun, aes(x = factor(count), y = municipio, fill = factor(count))) +
 
 
 uecs_perocu <- as.data.frame(summary(as.factor(select_liverpool_A$per_ocu)))
-
 uecs_municipio <- as.data.frame(summary(as.factor(select_liverpool_A$municipio)))
+
+bins_uecs_total <- c(0, 100, 200, 400, 800, 1000, 2000, 4000, 8000, 16000, 32000)
+pal_1 <- colorBin( palette="viridis", domain = as.numeric(mun_mapa@data$count.x, bins = bins_uecs_total))
+                   
 
 pop_bolsas <- paste0("<b><br/> Municipio: </b>", select_liverpool_bolsas$municipio,
                      "<b><br/> Nombre: </b>", select_liverpool_bolsas$nom_estab,

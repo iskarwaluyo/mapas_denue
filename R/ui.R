@@ -8,7 +8,7 @@ bootstrapPage(theme = shinytheme("flatly"),
                                             leafletOutput("mapa", width = "100%", height = "100%"),
                                             
                                             absolutePanel(top = 10, right = 10,
-                                                          checkboxInput("leyenda", "Mostrar leyenda", TRUE),
+                                                          #checkboxInput("leyenda", "Mostrar leyenda", TRUE),
                                                           absolutePanel(id = "logo_tia_cony", class = "card", bottom = 20, left = 60, width = "100%", fixed=TRUE, draggable = FALSE, height = "auto",
                                                                         tags$a(href='https://', tags$img(src='https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/logo_cliente_solo.png',height='40',width='40'))),
                                                           absolutePanel(id = "logo_geo", class = "card", bottom = 20, left = 120, width = "100%", fixed=TRUE, draggable = FALSE, height = "auto",

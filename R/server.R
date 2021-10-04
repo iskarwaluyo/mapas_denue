@@ -28,13 +28,11 @@ function(input, output, session) {
         if (input$per_ocu != "Todos") {
           data <- data[data$per_ocu == input$per_ocu,]
         }
-        {
-          if (input$CATEGORIA != "Todos") {
-            data <- data[data$CATEGORIA == input$CATEGORIA,]
-          }
+        if (input$CATEGORIA != "Todos") {
+          data <- data[data$CATEGORIA == input$CATEGORIA,]
         }
         data
-      }
+        }
     )
   })
   
@@ -148,5 +146,3 @@ function(input, output, session) {
   })
   
 }
-
-m
