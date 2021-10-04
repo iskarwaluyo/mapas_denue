@@ -1,5 +1,5 @@
-library(plyr) # CARGAR LIBRERÌA plyr
-library(readr) # CARGAR LIBRERÌA readr
+library(plyr) # CARGAR LIBRER?A plyr
+library(readr) # CARGAR LIBRER?A readr
 library(rgdal)
 library(dplyr)
 library(ggplot2)
@@ -24,6 +24,9 @@ function(input, output, session) {
       {
         if (input$municipio != "Todos") {
           data <- data[data$municipio == input$municipio,]
+        }
+        if (input$per_ocu != "Todos") {
+          data <- data[data$per_ocu == input$per_ocu,]
         }
         {
           if (input$CATEGORIA != "Todos") {

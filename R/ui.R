@@ -41,16 +41,19 @@ bootstrapPage(theme = shinytheme("flatly"),
                                                )
                                              ),
                                              DT::dataTableOutput("tabla1"),
+                                      )
                                     ),
                                     
                                     navbarMenu("Proyecto",
-                                               tabPanel("Resumen",
-                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/dpsir_autocorrelation_oaxaca_forest/master/html/resumen.html")
+                                               tabPanel("Introducción",
+                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/introduccion.html")
                                                ),
-                                               
+                                               tabPanel("Resumen de resultados preliminares",
+                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/resumen.html")
+                                               ),
                                                tabPanel("Acerca de este sitio",
-                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/dpsir_autocorrelation_oaxaca_forest/master/html/acerca_de.html"))
-                                    )
+                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/acerca_de.html"))
+                                    
                          
               )
               
