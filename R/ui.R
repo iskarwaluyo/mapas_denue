@@ -10,9 +10,9 @@ bootstrapPage(theme = shinytheme("flatly"),
                                             absolutePanel(top = 10, right = 10,
                                                           checkboxInput("leyenda", "Mostrar leyenda", TRUE),
                                                           absolutePanel(id = "logo_tia_cony", class = "card", bottom = 20, left = 60, width = "100%", fixed=TRUE, draggable = FALSE, height = "auto",
-                                                                        tags$a(href='https://www.conacyt.gob.mx', tags$img(src='https://raw.githubusercontent.com/iskarwaluyo/mapa_agricultura_masaforestal/master/html/logo_conacyt_solo.png',height='40',width='40'))),
+                                                                        tags$a(href='https://', tags$img(src='https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/logo_cliente_solo.png',height='40',width='40'))),
                                                           absolutePanel(id = "logo_geo", class = "card", bottom = 20, left = 120, width = "100%", fixed=TRUE, draggable = FALSE, height = "auto",
-                                                                        tags$a(href='https://www.centrogeo.org.mx', tags$img(src='https://raw.githubusercontent.com/iskarwaluyo/mapa_agricultura_masaforestal/master/html/logo_centrogeo_solo.png',height='40',width='40'))),
+                                                                        tags$a(href='https://www.iskarwaluyo.wordpress.com', tags$img(src='https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/logo_cliente_solo.png',height='40',width='40'))),
                                             ))
                                   )
                          ),
@@ -45,14 +45,11 @@ bootstrapPage(theme = shinytheme("flatly"),
                                     ),
                                     
                                     navbarMenu("Proyecto",
-                                               tabPanel("Introducción",
+                                               tabPanel("Reportes",
                                                         includeHTML("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/introduccion.html")
                                                ),
-                                               tabPanel("Resumen de resultados preliminares",
-                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/resumen.html")
-                                               ),
-                                               tabPanel("Acerca de este sitio",
-                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/acerca_de.html"))
+                                               tabPanel("Propuesta",
+                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/resumen.html"))
                                     
                          
               )
