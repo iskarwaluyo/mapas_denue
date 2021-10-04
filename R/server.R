@@ -138,6 +138,15 @@ function(input, output, session) {
     
   })
   
-
+  observe({
+    proxy <- leafletProxy("mapa", data = mun_mapa)
+    proxy %>% clearControls()
+    if (input$leyenda) {
+      proxy %>% 
+        addLegend("topleft", group = "UECS Totales", pal = pal_1, values = ~as.numeric(count), opacity = 1.0)
+    }
+  })
   
 }
+
+m
