@@ -1,7 +1,18 @@
+library(plyr) # CARGAR LIBRERÍA plyr
+library(readr) # CARGAR LIBRERÍA readr
+library(rgdal)
+library(dplyr)
+library(ggplot2)
+library(rio)
+library(RCurl)
+library(geojsonio)
+library(leaflet)
+library(shiny)
+library(shinythemes)
 
-#denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/mapas_denue/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), encoding = "UTF-8")
+denue_2021_merida <- read.csv((file = "/media/iskar/archivos/MAPAS/mapas_denue/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv"), encoding = "UTF-8")
 
-#mun_mapa <- readOGR("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/YUCATAN_MUNICIPIOS.geojson")
+mun_mapa <- readOGR("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/YUCATAN_MUNICIPIOS.geojson")
 
 #denue_2021_merida <- import("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/DATOS/denue_31_csv/conjunto_de_datos/denue_inegi_31_.csv")
 
@@ -139,13 +150,15 @@ uecs_perocu <- as.data.frame(summary(as.factor(select_liverpool_A$per_ocu)))
 uecs_municipio <- as.data.frame(summary(as.factor(select_liverpool_A$municipio)))
 
 
-setwd("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/RData")
+
+
+setwd("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/RDdata")
 
 save(denue_2021_merida, mun_mapa, file = "data_base.RData")
 save(select_liverpool, select_liverpool_A, file = "select_liverpool_general.RData")
 save(select_liverpool_bolsas, select_liverpool_camisas, select_liverpool_cerveza,
      select_liverpool_cosmeticos, select_liverpool_ropaext, select_liverpool_ropaint, 
-     select_liverpool_sastres, select_liverpool_sombreros, file = "select_a.RData")
+     select_liverpool_sastres, select_liverpool_sombreros, select_liverpool, file = "select_a.RData")
 save(pop_bolsas, pop_camisas, pop_cerveza, pop_cosmeticos,
      pop_ropaext, pop_ropaint, pop_sastres, pop_sombreros, pal_1, file = "pop_ups.RData")
 
@@ -165,3 +178,60 @@ write.csv(file = "denue_liverpool_ropaint.csv", select_liverpool_ropaint)
 write.csv(file = "denue_liverpool_ropaext.csv", select_liverpool_ropaext)
 
 setwd("/media/iskar/archivos/MAPAS/mapas_denue/")
+
+pop_bolsas <- paste0("<b><br/> Municipio: </b>", select_liverpool_bolsas$municipio,
+                     "<b><br/> Nombre: </b>", select_liverpool_bolsas$nom_estab,
+                     "<b><br/> Personas ocupadas: </b>", select_liverpool_bolsas$per_ocu,
+                     "<b><br/> Tipo de actividad: </b>", select_liverpool_bolsas$nombre_act,
+                     "<b><br/> Correo: </b>", select_liverpool_bolsas$correoelec,
+                     "<b><br/> Telefono: </b>", select_liverpool_bolsas$telefono)
+
+pop_sastres <- paste0("<b><br/> Municipio: </b>", select_liverpool_sastres$municipio,
+                      "<b><br/> Nombre: </b>", select_liverpool_sastres$nom_estab,
+                      "<b><br/> Personas ocupadas: </b>", select_liverpool_sastres$per_ocu,
+                      "<b><br/> Tipo de actividad: </b>", select_liverpool_sastres$nombre_act,
+                      "<b><br/> Correo: </b>", select_liverpool_sastres$correoelec,
+                      "<b><br/> Telefono: </b>", select_liverpool_sastres$telefono)
+
+pop_cosmeticos <- paste0("<b><br/> Municipio: </b>", select_liverpool_cosmeticos$municipio,
+                         "<b><br/> Nombre: </b>", select_liverpool_cosmeticos$nom_estab,
+                         "<b><br/> Personas ocupadas: </b>", select_liverpool_cosmeticos$per_ocu,
+                         "<b><br/> Tipo de actividad: </b>", select_liverpool_cosmeticos$nombre_act,
+                         "<b><br/> Correo: </b>", select_liverpool_cosmeticos$correoelec,
+                         "<b><br/> Telefono: </b>", select_liverpool_cosmeticos$telefono)
+
+pop_sombreros <- paste0("<b><br/> Municipio: </b>", select_liverpool_sombreros$municipio,
+                        "<b><br/> Nombre: </b>", select_liverpool_sombreros$nom_estab,
+                        "<b><br/> Personas ocupadas: </b>", select_liverpool_sombreros$per_ocu,
+                        "<b><br/> Tipo de actividad: </b>", select_liverpool_sombreros$nombre_act,
+                        "<b><br/> Correo: </b>", select_liverpool_sombreros$correoelec,
+                        "<b><br/> Telefono: </b>", select_liverpool_sombreros$telefono)
+
+pop_camisas <- paste0("<b><br/> Municipio: </b>", select_liverpool_camisas$municipio,
+                      "<b><br/> Nombre: </b>", select_liverpool_camisas$nom_estab,
+                      "<b><br/> Personas ocupadas: </b>", select_liverpool_camisas$per_ocu,
+                      "<b><br/> Tipo de actividad: </b>", select_liverpool_camisas$nombre_act,
+                      "<b><br/> Correo: </b>", select_liverpool_camisas$correoelec,
+                      "<b><br/> Telefono: </b>", select_liverpool_camisas$telefono)
+
+pop_ropaext <- paste0("<b><br/> Municipio: </b>", select_liverpool_ropaext$municipio,
+                      "<b><br/> Nombre: </b>", select_liverpool_ropaext$nom_estab,
+                      "<b><br/> Personas ocupadas: </b>", select_liverpool_ropaext$per_ocu,
+                      "<b><br/> Tipo de actividad: </b>", select_liverpool_ropaext$nombre_act,
+                      "<b><br/> Correo: </b>", select_liverpool_ropaext$correoelec,
+                      "<b><br/> Telefono: </b>", select_liverpool_ropaext$telefono)
+
+pop_ropaint <- paste0("<b><br/> Municipio: </b>", select_liverpool_ropaint$municipio,
+                      "<b><br/> Nombre: </b>", select_liverpool_ropaint$nom_estab,
+                      "<b><br/> Personas ocupadas: </b>", select_liverpool_ropaint$per_ocu,
+                      "<b><br/> Tipo de actividad: </b>", select_liverpool_ropaint$nombre_act,
+                      "<b><br/> Correo: </b>", select_liverpool_ropaint$correoelec,
+                      "<b><br/> Telefono: </b>", select_liverpool_ropaint$telefono)
+
+pop_cerveza <- paste0("<b><br/> Municipio: </b>", select_liverpool_cerveza$municipio,
+                      "<b><br/> Nombre: </b>", select_liverpool_cerveza$nom_estab,
+                      "<b><br/> Personas ocupadas: </b>", select_liverpool_cerveza$per_ocu,
+                      "<b><br/> Tipo de actividad: </b>", select_liverpool_cerveza$nombre_act,
+                      "<b><br/> Correo: </b>", select_liverpool_cerveza$correoelec,
+                      "<b><br/> Telefono: </b>", select_liverpool_cerveza$telefono)
+
