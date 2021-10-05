@@ -106,7 +106,7 @@ function(input, output, session) {
    m <- m %>%  addPolygons(data = mun_mapa, stroke = FALSE, smoothFactor = 0.3,
                             options = pathOptions(pane = "B"),
                             fillOpacity = .7,
-                            fillColor = ~pal_1(as.numeric(count)),
+                            fillColor = ~pal_1(as.numeric(count.x)),
                             opacity = .3,
                             weight = 1,
                             color = "#4D4D4D",

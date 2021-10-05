@@ -118,8 +118,8 @@ ggplot(uecs_mun, aes(x = factor(count), y = municipio, fill = factor(count))) +
   geom_text(aes(label = count), colour = "black", size = 3, position=position_dodge(width=0.05), hjust=-1.1) +
   scale_fill_brewer(palette = "Pastel1")
 
-bins_uecs_total <- c(0, 100, 200, 400, 800, 1000, 2000, 4000, 8000, 16000, 32000)
-pal_1 <- colorBin( palette="viridis", domain = as.numeric(uecs_mun$count), bins = bins_uecs_total)
+bins_uecs_total <- c(0, 100, 200, 400, 800, 1000, 2000, 4000, 8000, 16000, 32000, Inf)
+pal_1 <- colorBin( palette="viridis", domain = uecs_municipio$count, bins = bins_uecs_total)
                    
 
 pop_bolsas <- paste0("<b><br/> Municipio: </b>", select_liverpool_bolsas$municipio,
@@ -205,7 +205,6 @@ write.csv(file = "denue_liverpool_sombreros.csv", select_liverpool_sombreros)
 write.csv(file = "denue_liverpool_ropaint.csv", select_liverpool_ropaint)
 write.csv(file = "denue_liverpool_ropaext.csv", select_liverpool_ropaext)
 write.csv(file = "denue_liverpool_cervezas.csv", select_liverpool_cerveza)
-
 
 setwd("/media/iskar/archivos/MAPAS/mapas_denue/")
 
