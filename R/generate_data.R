@@ -85,10 +85,21 @@ select_liverpool <- rbind(select_liverpool_bolsas, select_liverpool_sastres,
                           select_liverpool_cosmeticos, select_liverpool_sombreros,
                           select_liverpool_ropaext, select_liverpool_ropaint, select_liverpool_cerveza)
 
-uecs_mun <- denue_2021_merida %>% 
+uecs_municipio <- denue_2021_merida %>% 
   group_by(municipio) %>% 
   summarise(count = n()) %>% 
   mutate(perc = count/sum(count))
+
+uecs_mun_perocu <- denue_2021_merida %>% 
+  group_by(municipio, per_ocu) %>% 
+  summarise(count = n()) %>% 
+  mutate(perc = count/sum(count))
+
+uecs_perocu <- denue_2021_merida %>% 
+  group_by(per_ocu) %>% 
+  summarise(count = n()) %>% 
+  mutate(perc = count/sum(count))
+
 
 mun_mapa <- merge(mun_mapa, uecs_mun, by.x = "NOM_MUN", by.y = "municipio")
 
@@ -107,12 +118,8 @@ ggplot(uecs_mun, aes(x = factor(count), y = municipio, fill = factor(count))) +
   geom_text(aes(label = count), colour = "black", size = 3, position=position_dodge(width=0.05), hjust=-1.1) +
   scale_fill_brewer(palette = "Pastel1")
 
-
-uecs_perocu <- as.data.frame(summary(as.factor(select_liverpool_A$per_ocu)))
-uecs_municipio <- as.data.frame(summary(as.factor(select_liverpool_A$municipio)))
-
 bins_uecs_total <- c(0, 100, 200, 400, 800, 1000, 2000, 4000, 8000, 16000, 32000)
-pal_1 <- colorBin( palette="viridis", domain = as.numeric(mun_mapa@data$count.x, bins = bins_uecs_total))
+pal_1 <- colorBin( palette="viridis", domain = as.numeric(uecs_mun$count), bins = bins_uecs_total)
                    
 
 pop_bolsas <- paste0("<b><br/> Municipio: </b>", select_liverpool_bolsas$municipio,
@@ -174,7 +181,7 @@ pop_cerveza <- paste0("<b><br/> Municipio: </b>", select_liverpool_cerveza$munic
 
 setwd("/media/iskar/archivos/MAPAS/mapas_denue/DATOS/RDdata")
 
-save(denue_2021_merida, mun_mapa, file = "data_base.RData")
+save(denue_2021_merida, mun_mapa, uecs_mun_perocu, uecs_municipio, uecs_perocu , file = "data_base.RData")
 save(select_liverpool, select_liverpool_A, file = "select_liverpool_general.RData")
 save(select_liverpool_bolsas, select_liverpool_camisas, select_liverpool_cerveza,
      select_liverpool_cosmeticos, select_liverpool_ropaext, select_liverpool_ropaint, 
@@ -186,16 +193,19 @@ setwd("/media/iskar/archivos/MAPAS/mapas_denue/RESULTADOS")
 
 write.csv(file = "lista_de_actividades_economicas_merida.csv", actividades_economicas_en_DENUE)
 write.csv(file = "primer_filtrado_uecs_liverpool.csv", select_liverpool_A)
-write.csv(file = "personas_ocupadas.csv", uecs_perocu)
+write.csv(file = "uecs_personas_ocupadas.csv", uecs_perocu)
 write.csv(file = "uecs_municipio.csv", uecs_municipio)
+write.csv(file = "uecs_municipio_personaocupada.csv", uecs_mun_perocu)
 
 write.csv(file = "denue_liverpool_bolsas.csv", select_liverpool_bolsas)
 write.csv(file = "denue_liverpool_sastrerias.csv", select_liverpool_sastres)
 write.csv(file = "denue_liverpool_cosmeticos.csv", select_liverpool_cosmeticos)
 write.csv(file = "denue_liverpool_camisas.csv", select_liverpool_camisas)
-write.csv(file = "denue_liverpool_ropaext.csv", select_liverpool_ropaext)
+write.csv(file = "denue_liverpool_sombreros.csv", select_liverpool_sombreros)
 write.csv(file = "denue_liverpool_ropaint.csv", select_liverpool_ropaint)
 write.csv(file = "denue_liverpool_ropaext.csv", select_liverpool_ropaext)
+write.csv(file = "denue_liverpool_cervezas.csv", select_liverpool_cerveza)
+
 
 setwd("/media/iskar/archivos/MAPAS/mapas_denue/")
 
