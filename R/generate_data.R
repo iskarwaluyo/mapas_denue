@@ -119,7 +119,7 @@ ggplot(uecs_mun, aes(x = factor(count), y = municipio, fill = factor(count))) +
   scale_fill_brewer(palette = "Pastel1")
 
 bins_uecs_total <- c(0, 100, 200, 400, 800, 1000, 2000, 4000, 8000, 16000, 32000, Inf)
-pal_1 <- colorBin( palette="viridis", domain = uecs_municipio$count, bins = bins_uecs_total)
+pal_1 <- colorBin( palette="viridis", domain = mun_mapa@data$count.x, bins = bins_uecs_total)
                    
 
 pop_bolsas <- paste0("<b><br/> Municipio: </b>", select_liverpool_bolsas$municipio,
