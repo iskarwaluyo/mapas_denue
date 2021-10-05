@@ -25,7 +25,9 @@ function(input, output, session) {
         if (input$municipio != "Todos") {
           data <- data[data$municipio == input$municipio,]
         }
-
+        if (input$per_ocu != "Todos") {
+          data <- data[data$per_ocu == input$per_ocu,]
+        }
         if (input$CATEGORIA != "Todos") {
           data <- data[data$CATEGORIA == input$CATEGORIA,]
         }
@@ -139,7 +141,7 @@ function(input, output, session) {
     proxy %>% clearControls()
     if (input$leyenda) {
       proxy %>% 
-        addLegend("topleft", group = "UECS Totales", pal = pal_1, values = ~as.numeric(count), opacity = 1.0)
+        addLegend("topleft", group = "UECS Totales", title = "Establecimientos totales", pal = pal_1, values = ~count.x, opacity = 1.0)
     }
   })
   
