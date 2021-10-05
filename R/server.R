@@ -21,18 +21,16 @@ function(input, output, session) {
         dom = 'Bfrtip',
         buttons = c('csv')
       ),
-      {
+    {
         if (input$municipio != "Todos") {
           data <- data[data$municipio == input$municipio,]
         }
-        if (input$per_ocu != "Todos") {
-          data <- data[data$per_ocu == input$per_ocu,]
-        }
+
         if (input$CATEGORIA != "Todos") {
           data <- data[data$CATEGORIA == input$CATEGORIA,]
         }
         data
-        }
+     }
     )
   })
   
