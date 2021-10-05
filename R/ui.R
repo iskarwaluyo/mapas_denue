@@ -46,7 +46,7 @@ bootstrapPage(theme = shinytheme("flatly"),
                                     
                                     navbarMenu("Proyecto",
                                                tabPanel("SOBRE EL PROYECTO",
-                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/RESUMEN.html")
+                                                        includeHTML("https://raw.githubusercontent.com/iskarwaluyo/mapas_denue/main/R/html/RESUMENB.html")
                                                )
               )
               
